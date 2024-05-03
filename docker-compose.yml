@@ -1,0 +1,91 @@
+version: '3.7'
+networks:
+  ledger:
+services:
+  pg:
+    container_name: ledger-pg
+    image: postgres:latest
+    ports:
+      - "5910:5432"
+    networks:
+      - ledger
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./db-local:/var/lib/postgresql/data
+  redis:
+    container_name: ledger-redis
+    image: "redis:alpine"
+    command: redis-server
+    ports:
+      - "6382:6379"
+    networks:
+      - ledger
+    environment:
+      - REDIS_REPLICATION_MODE=master
+  prometheus:
+    container_name: ledger-prometheus
+    image: "prom/prometheus"
+    ports:
+      - "9090:9090"
+    networks:
+      - ledger
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+  grafana:
+    container_name: ledger-grafana
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+  api:
+    container_name: ledger-api
+    build:
+      context: .
+      dockerfile: ./Dockerfile.api
+    depends_on:
+      - pg
+      - redis
+      - prometheus
+    networks:
+      - ledger
+    environment:
+      - API_PORT=8080
+      - PROCESSING_PORT=8081
+      - POSTGRES_HOST=ledger-pg
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DATABASE=ledger
+      - POSTGRES_PORT=5432
+      - REDIS_HOST=ledger-redis
+      - REDIS_PORT=6379
+      - LOGGER_LEVEL=verbose
+      - CACHE_DEFAULT_TTL=900000
+    ports:
+      - '8080:8080'
+  processing:
+    container_name: ledger-processing
+    build:
+      context: .
+      dockerfile: ./Dockerfile.processing
+    depends_on:
+      - pg
+      - redis
+      - prometheus
+    networks:
+      - ledger
+    environment:
+      - API_PORT=8080
+      - PROCESSING_PORT=8081
+      - POSTGRES_HOST=ledger-pg
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DATABASE=ledger
+      - POSTGRES_PORT=5432
+      - REDIS_HOST=ledger-redis
+      - REDIS_PORT=6379
+      - LOGGER_LEVEL=verbose
+      - CACHE_DEFAULT_TTL=900000
+    ports:
+      - '8081:8081'
