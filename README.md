@@ -31,14 +31,7 @@ $ npm run start:processing:dev
 Run application locally fully in docker with all env
 ```bash
 # development and watch mode
-$ npm run docker:local
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test:unit
+$ docker compose up
 ```
 
 Serve `http://localhost:8080/swagger`
