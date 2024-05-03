@@ -21,7 +21,9 @@ cp .env.example .env
 Run application locally
 ```bash
 # development and watch mode
-$ npm run start:dev
+$ npm run start:api:dev
+$ npm run start:processing:dev
+
 ```
 
 ## Running the app in docker
