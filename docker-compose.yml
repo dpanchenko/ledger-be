@@ -14,7 +14,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     volumes:
-      - ./db-local:/var/lib/postgresql/data
+      - ./.docker-local/data/pg:/var/lib/postgresql/data
   redis:
     container_name: ledger-redis
     image: "redis:alpine"
@@ -33,12 +33,20 @@ services:
     networks:
       - ledger
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./.docker-local/config/prometheus:/etc/prometheus/
+      - ./.docker-local/data/prometheus:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
   grafana:
     container_name: ledger-grafana
     image: grafana/grafana
+    networks:
+      - ledger
     ports:
       - "3000:3000"
+    volumes:
+      - ./.docker-local/data/grafana:/var/lib/grafana
   api:
     container_name: ledger-api
     build:

@@ -1,8 +1,8 @@
-# Template Serive
+# Basic Multi-Currency Ledger Service
 
 ## Description
 
-Example of regular service
+This is a basic, multi-currency ledger service. The ledger service has the ability to create ledgers, create transactions (debit/credit), record the balance, and return the balance.
 
 ## Installation
 
