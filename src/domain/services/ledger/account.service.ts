@@ -1,9 +1,9 @@
 import { AccountAggregate } from '@domain/aggregates';
 import { CURRENCIES } from '@domain/constants';
 import { AccountError } from '@domain/errors';
-import { TransactionEntity } from '../entities';
-import { AccountRepository, SubAccountRepository, TransactionRepository } from '../repositories';
-import { AccountType, Currency, IAmountPayload, TransactionStatus, TransactionType } from '../types';
+import { TransactionEntity } from '../../entities';
+import { AccountRepository, SubAccountRepository, TransactionRepository } from '../../repositories';
+import { AccountType, Currency, IAmountPayload, TransactionStatus, TransactionType } from '../../types';
 import { ConsistentOperationService } from './consistent-operation.service';
 import { UUID } from '@libs/types';
 import { generateUuid } from '@libs/helpers';

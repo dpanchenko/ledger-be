@@ -1,6 +1,6 @@
 import { generateUuid } from '@libs/helpers';
 import { UUID } from '@libs/types';
-import { AccountType, IAccount } from '../types';
+import { AccountType, IAccount } from '../../types';
 
 export class AccountEntity implements IAccount {
   public id: UUID;

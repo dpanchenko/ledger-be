@@ -1,5 +1,5 @@
 import { UUID } from '@libs/types';
-import { AccountEntity } from '../entities';
+import { AccountEntity } from '../../entities';
 import { AccountType, Currency } from '@domain/types';
 
 export abstract class AccountRepository {

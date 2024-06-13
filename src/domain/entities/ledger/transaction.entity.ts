@@ -1,6 +1,6 @@
 import { generateUuid } from '@libs/helpers';
 import { UUID } from '@libs/types';
-import { Currency, ITransaction, TransactionStatus, TransactionType } from '../types';
+import { Currency, ITransaction, TransactionStatus, TransactionType } from '../../types';
 
 export class TransactionEntity implements ITransaction {
   public id: UUID;

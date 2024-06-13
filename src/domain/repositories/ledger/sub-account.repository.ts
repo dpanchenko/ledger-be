@@ -1,5 +1,5 @@
 import { UUID } from '@libs/types';
-import { SubAccountEntity } from '../entities';
+import { SubAccountEntity } from '../../entities';
 import { Currency } from '@domain/types';
 
 export abstract class SubAccountRepository {

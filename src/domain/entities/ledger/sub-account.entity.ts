@@ -1,5 +1,5 @@
 import { UUID } from '@libs/types';
-import { Currency, ISubAccount } from '../types';
+import { Currency, ISubAccount } from '../../types';
 import { DEFAULT_CURRENCY } from '@domain/constants';
 
 export class SubAccountEntity implements ISubAccount {
